@@ -1,0 +1,9 @@
+<launch>
+  <!-- node parameters -->
+  <arg name="cstation_pose_file_path" default="cstation_pose.yaml" />
+
+  <!-- Launch node -->
+  <node pkg="auto_recharge" type="update_cstation_pose_node" name="update_cstation_pose" output="screen">
+    <param name="cstation_pose_file" value="$(find auto_recharge)/config/$(arg cstation_pose_file_path)" />
+  </node>
+</launch>
