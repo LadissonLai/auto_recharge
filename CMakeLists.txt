@@ -118,7 +118,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+  include/auto_recharge
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -136,6 +136,18 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(update_cstation_pose_node src/update_cstation_pose_node.cpp)
+add_executable(auto_recharge_node 
+  src/auto_recharge_node.cpp
+  src/fsm.cpp
+  src/base_state.cpp
+  src/search_cstation_state.cpp
+  src/search_arcode_state.cpp
+  # src/back_vehicle_state.cpp
+  # src/dock_together_state.cpp
+  # src/charging_state.cpp
+  src/charged_state.cpp
+  # src/error_state.cpp
+  )
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -151,6 +163,10 @@ add_executable(update_cstation_pose_node src/update_cstation_pose_node.cpp)
 target_link_libraries(update_cstation_pose_node
   ${catkin_LIBRARIES}
   yaml-cpp
+)
+target_link_libraries(auto_recharge_node
+  ${catkin_LIBRARIES}
+  pthread
 )
 
 #############
@@ -175,18 +191,18 @@ target_link_libraries(update_cstation_pose_node
 
 ## Mark libraries for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
-install(TARGETS update_cstation_pose_node
+install(TARGETS update_cstation_pose_node auto_recharge_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES

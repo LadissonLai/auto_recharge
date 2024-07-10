@@ -3,6 +3,11 @@
 
 # dependency
 ```shell
+# yaml-cpp
 sudo apt install libyaml-cpp-dev
-
+# tf2
+sudo apt install ros-${ROS_DISTRO}-tf2-tools ros-${ROS_DISTRO}-tf ros--${ROS_DISTRO}-tf2
 ```
+
+# 基本有限状态机
+base_state.h, fsm.h, fsm.cpp中实现。
