@@ -139,7 +139,7 @@ add_executable(update_cstation_pose_node src/update_cstation_pose_node.cpp)
 add_executable(auto_recharge_node 
   src/auto_recharge_node.cpp
   src/fsm.cpp
-  src/base_state.cpp
+  # src/base_state.cpp
   src/search_cstation_state.cpp
   src/search_arcode_state.cpp
   # src/back_vehicle_state.cpp
